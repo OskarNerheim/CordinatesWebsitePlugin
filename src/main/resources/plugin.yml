@@ -1,0 +1,4 @@
+name: coordinatewebsite
+main: me.nerheim.coordinatewebsite.Plugin
+version: 1.0.0
+api-version: 1.21
