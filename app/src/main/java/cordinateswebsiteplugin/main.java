@@ -3,30 +3,34 @@
  */
 package cordinateswebsiteplugin;
 
-import java.lang.reflect.AccessFlag.Location;
-
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bucket.event.EventHandler;
+import org.checkerframework.checker.units.qual.s;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.entity.player;
+import org.bukkit.entity.Player;
+import org.bukkit.Location;
+import org.bukkit.event.Listener;
 
-public class Main extends JavaPlugin {
+public class main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        getServer().getPluginManager().registerEvents(this, this);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
-        player player = event.getPlayer();
-        location location = player.getlocation();
-        double x = Location.getX();
-        double y = Location.getY();
-        double z = Location.getZ();
+        Player player = event.getPlayer();
+        Location location = player.getLocation();
+        double x = location.getX();
+        double y = location.getY();
+        double z = location.getZ();
+        );
 
     }
 }
