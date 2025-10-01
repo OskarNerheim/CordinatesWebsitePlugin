@@ -1,7 +1,7 @@
 // Sample coordinates data
 let currentCoordinates = {
     x: 0,
-    y: 64,
+    y: 0,
     z: 0
 };
 
