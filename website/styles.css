@@ -106,9 +106,56 @@ main {
 
 .coordinates-section h2 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 2.5rem;
     color: #2c3e50;
+}
+
+/* Connection status styles */
+.connection-info {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.connection-status-container {
+    margin-bottom: 0.5rem;
+}
+
+.status-label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.connection-status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.connection-status.connected {
+    background: #27ae60;
+    color: white;
+}
+
+.connection-status.disconnected {
+    background: #e74c3c;
+    color: white;
+}
+
+.connection-status.error {
+    background: #f39c12;
+    color: white;
+}
+
+.player-info {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-style: italic;
 }
 
 .coordinates-grid {
@@ -147,7 +194,14 @@ main {
     margin-right: 0.5rem;
 }
 
-.update-btn, .save-btn {
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.update-btn, .save-btn, .connect-btn {
     background: #27ae60;
     color: white;
     padding: 10px 20px;
@@ -155,10 +209,19 @@ main {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
+    font-size: 0.9rem;
 }
 
 .update-btn:hover, .save-btn:hover {
     background: #219a52;
+}
+
+.connect-btn {
+    background: #3498db;
+}
+
+.connect-btn:hover {
+    background: #2980b9;
 }
 
 #saved-locations {
@@ -167,6 +230,87 @@ main {
     border-radius: 5px;
     margin-bottom: 1rem;
     min-height: 100px;
+}
+
+/* Player list styles */
+#player-list {
+    background: #ecf0f1;
+    padding: 1rem;
+    border-radius: 5px;
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.no-players {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    margin: 0;
+    padding: 2rem 0;
+}
+
+.players-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.player-card {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.player-card:hover {
+    border-color: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.player-card.selected {
+    border-color: #27ae60;
+    background: #e8f5e8;
+}
+
+.player-card.selected::before {
+    content: "★";
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    color: #27ae60;
+    font-size: 1.2rem;
+}
+
+.player-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 0.3rem;
+}
+
+.player-coords {
+    display: flex;
+    gap: 0.8rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #34495e;
+    margin-bottom: 0.2rem;
+}
+
+.player-world {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-bottom: 0.2rem;
+}
+
+.player-update {
+    font-size: 0.7rem;
+    color: #95a5a6;
 }
 
 /* About section */

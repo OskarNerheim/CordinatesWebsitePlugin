@@ -9,6 +9,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
 
@@ -84,6 +86,57 @@ public class Plugin extends JavaPlugin implements Listener
         // getLogger().info(player.getName() + " moved to " + x + ", " + y + ", " + z + " in world " + world);
     }
 
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        getLogger().info(player.getName() + " joined the server");
+        
+        // Send player join notification to WebSocket clients
+        if (webSocketServer != null) {
+            String joinData = String.format(
+                "{\"type\":\"playerJoin\",\"player\":\"%s\"}", 
+                player.getName()
+            );
+            webSocketServer.broadcast(joinData);
+            
+            // Also send current player list
+            sendPlayerList();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        getLogger().info(player.getName() + " left the server");
+        
+        // Send player leave notification to WebSocket clients
+        if (webSocketServer != null) {
+            String leaveData = String.format(
+                "{\"type\":\"playerLeave\",\"player\":\"%s\"}", 
+                player.getName()
+            );
+            webSocketServer.broadcast(leaveData);
+        }
+    }
+
+    private void sendPlayerList() {
+        if (webSocketServer != null) {
+            StringBuilder playerList = new StringBuilder();
+            playerList.append("{\"type\":\"playerList\",\"players\":[");
+            
+            Player[] players = getServer().getOnlinePlayers().toArray(new Player[0]);
+            for (int i = 0; i < players.length; i++) {
+                playerList.append("\"").append(players[i].getName()).append("\"");
+                if (i < players.length - 1) {
+                    playerList.append(",");
+                }
+            }
+            
+            playerList.append("]}");
+            webSocketServer.broadcast(playerList.toString());
+        }
+    }
+
     // Inner class for WebSocket server
     private class CoordinateWebSocketServer extends WebSocketServer {
         private Set<WebSocket> connections = new CopyOnWriteArraySet<>();
@@ -99,6 +152,9 @@ public class Plugin extends JavaPlugin implements Listener
             
             // Send welcome message
             conn.send("{\"type\":\"connected\",\"message\":\"Connected to Minecraft coordinate tracker\"}");
+            
+            // Send current player list to new connection
+            sendPlayerList();
         }
 
         @Override

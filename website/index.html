@@ -32,15 +32,33 @@
         <section id="coordinates" class="coordinates-section">
             <div class="container">
                 <h2>Your Coordinates</h2>
+                <div class="connection-info">
+                    <div class="connection-status-container">
+                        <span class="status-label">Minecraft Server:</span>
+                        <span id="connection-status" class="connection-status disconnected">disconnected</span>
+                    </div>
+                    <div id="player-info" class="player-info"></div>
+                </div>
+
                 <div class="coordinates-grid">
                     <div class="coordinate-card">
                         <h3>Current Location</h3>
                         <div class="coord-display">
                             <span class="coord-label">X:</span> <span id="coord-x">0</span>
-                            <span class="coord-label">Y:</span> <span id="coord-y">64</span>
+                            <span class="coord-label">Y:</span> <span id="coord-y">0</span>
                             <span class="coord-label">Z:</span> <span id="coord-z">0</span>
                         </div>
-                        <button class="update-btn" onclick="updateCoordinates()">Update</button>
+                        <div class="button-group">
+                            <button class="update-btn" onclick="updateCoordinates()">Manual Update</button>
+                            <button class="connect-btn" onclick="connectToMinecraft()">Reconnect</button>
+                        </div>
+                    </div>
+                    
+                    <div class="coordinate-card">
+                        <h3>Online Players</h3>
+                        <div id="player-list">
+                            <p class="no-players">No players online</p>
+                        </div>
                     </div>
                     
                     <div class="coordinate-card">
